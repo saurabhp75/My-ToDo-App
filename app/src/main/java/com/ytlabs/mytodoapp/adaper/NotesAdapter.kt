@@ -8,10 +8,12 @@ import android.widget.AdapterView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ytlabs.mytodoapp.R
+import com.ytlabs.mytodoapp.clicklisteners.ItemClickListener
 import com.ytlabs.mytodoapp.model.Notes
 
-class NotesAdapter(var listNotes: MutableList<Notes>) :
+class NotesAdapter(private var listNotes: MutableList<Notes>, private var itemClickListener: ItemClickListener) :
     RecyclerView.Adapter<NotesAdapter.ViewHolder>() {
+
     // Inflates and creates the sub layout/view of the item
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotesAdapter.ViewHolder {
         val view: View = LayoutInflater.from(parent.context)
@@ -30,6 +32,9 @@ class NotesAdapter(var listNotes: MutableList<Notes>) :
 
         holder.textViewTitle.text = note.title
         holder.textViewDescription.text = note.description
+        holder.itemView.setOnClickListener {
+            itemClickListener.onClick(note)
+        }
 
     }
 
