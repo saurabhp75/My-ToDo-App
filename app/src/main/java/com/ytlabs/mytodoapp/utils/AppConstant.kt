@@ -1,4 +1,4 @@
-package com.ytlabs.mytodoapp
+package com.ytlabs.mytodoapp.utils
 
 object AppConstant {
     const val FULL_NAME = "fullName"

@@ -1,4 +1,4 @@
-package com.ytlabs.mytodoapp
+package com.ytlabs.mytodoapp.utils
 
 object PrefConstant {
     const val SHARED_PREFRENCE_NAME = "notes_app_pref"

@@ -1,10 +1,12 @@
-package com.ytlabs.mytodoapp
+package com.ytlabs.mytodoapp.view
 
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.ytlabs.mytodoapp.utils.PrefConstant
+import com.ytlabs.mytodoapp.R
 
 class SplashActivity : AppCompatActivity() {
     lateinit var sharedPreferences: SharedPreferences

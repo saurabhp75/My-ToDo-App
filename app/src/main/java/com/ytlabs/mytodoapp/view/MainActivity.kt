@@ -1,4 +1,4 @@
-package com.ytlabs.mytodoapp
+package com.ytlabs.mytodoapp.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

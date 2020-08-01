@@ -1,9 +1,10 @@
-package com.ytlabs.mytodoapp
+package com.ytlabs.mytodoapp.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.TextView
+import com.ytlabs.mytodoapp.utils.AppConstant
+import com.ytlabs.mytodoapp.R
 
 class DetailActivity : AppCompatActivity() {
     private val TAG = "DetailActivity"

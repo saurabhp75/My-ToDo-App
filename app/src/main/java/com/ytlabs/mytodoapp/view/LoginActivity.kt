@@ -1,4 +1,4 @@
-package com.ytlabs.mytodoapp
+package com.ytlabs.mytodoapp.view
 
 import android.content.Context
 import android.content.Intent
@@ -8,7 +8,9 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.core.content.edit
+import com.ytlabs.mytodoapp.utils.AppConstant
+import com.ytlabs.mytodoapp.utils.PrefConstant
+import com.ytlabs.mytodoapp.R
 
 class LoginActivity : AppCompatActivity() {
     lateinit var editTextFullName: EditText
