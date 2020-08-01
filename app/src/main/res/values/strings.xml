@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">My ToDo App</string>
+    <string name="full_name">Full Name</string>
+    <string name="user_name">User Name</string>
+    <string name="login">Login</string>
+    <string name="my_notes_app">My Notes App</string>
+    <string name="submit">Submit</string>
+    <string name="description">Description</string>
+    <string name="title">Title</string>
+    <string name="add_notes">Add Notes</string>
+</resources>
