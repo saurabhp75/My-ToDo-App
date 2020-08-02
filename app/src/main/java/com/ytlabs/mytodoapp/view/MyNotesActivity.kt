@@ -14,12 +14,15 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.ytlabs.mytodoapp.NotesApp
 import com.ytlabs.mytodoapp.utils.AppConstant
 import com.ytlabs.mytodoapp.utils.PrefConstant
 import com.ytlabs.mytodoapp.R
 import com.ytlabs.mytodoapp.adaper.NotesAdapter
 import com.ytlabs.mytodoapp.clicklisteners.ItemClickListener
-import com.ytlabs.mytodoapp.model.Notes
+import com.ytlabs.mytodoapp.db.Notes
+
+//import com.ytlabs.mytodoapp.model.Notes
 
 class MyNotesActivity : AppCompatActivity() {
     private val TAG = "MyNotesActivity"
@@ -44,9 +47,17 @@ class MyNotesActivity : AppCompatActivity() {
 
         setupSharedPreferences()
         getIntentData()
+        getDataFromDb()
         supportActionBar?.title = fullName
+        setupRecyclerView()
         // Code below doesn't work
         // actionBar?.title = fullName
+    }
+
+    private fun getDataFromDb() {
+        val notesApp = applicationContext as NotesApp
+        val notesDao = notesApp.getNotesDb().notesDao()
+        notesList.addAll(notesDao.getAll())
     }
 
     private fun setupSharedPreferences() {
@@ -85,27 +96,43 @@ class MyNotesActivity : AppCompatActivity() {
             val title = editTextTitle.text.toString()
             val description = editTextDescription.text.toString()
 
-            if(!title.isEmpty() && !description.isEmpty()){
-                val notes = Notes(title, description)
-                notesList.add(notes)
+            if (!title.isEmpty() && !description.isEmpty()) {
+                val note = Notes(title = title, description = description)
+                notesList.add(note)
+                addNoteToDb(note)
             } else {
-                Toast.makeText(this@MyNotesActivity, "Title or description can't be empty", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this@MyNotesActivity,
+                    "Title or description can't be empty",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
-            setupRecyclerView()
             dialog.hide()
 
         }
     }
 
+    private fun addNoteToDb(note: Notes) {
+        val notesApp = applicationContext as NotesApp
+        val notesDao = notesApp.getNotesDb().notesDao()
+
+        notesDao.insert(note)
+
+    }
+
     private fun setupRecyclerView() {
         val itemClickListener = object : ItemClickListener {
-            override fun onClick(note: Notes) {
+            override fun onClick(notes: Notes) {
 //                Log.d(TAG, "${note.title}");
                 val detailIntent = Intent(this@MyNotesActivity, DetailActivity::class.java)
-                detailIntent.putExtra(AppConstant.TITLE, note.title)
-                detailIntent.putExtra(AppConstant.DESCRIPTION, note.description)
+                detailIntent.putExtra(AppConstant.TITLE, notes.title)
+                detailIntent.putExtra(AppConstant.DESCRIPTION, notes.description)
                 startActivity(detailIntent)
 //                Intent(this, DetailActivity::class.java)
+
+            }
+
+            override fun onUpdate(notes: Notes) {
 
             }
         }
