@@ -27,9 +27,10 @@ import com.ytlabs.mytodoapp.db.Notes
 class MyNotesActivity : AppCompatActivity() {
     private val TAG = "MyNotesActivity"
     private var fullName: String? = null
-    lateinit var fabAddNotes: FloatingActionButton
-    lateinit var sharedPreferences: SharedPreferences
-    lateinit var recyclerViewNotes: RecyclerView
+    private lateinit var fabAddNotes: FloatingActionButton
+    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var recyclerViewNotes: RecyclerView
+    val ADD_NOTES_CODE = 100
 
     var notesList = mutableListOf<Notes>()
 //    var notesList = ArrayList<Notes>()
@@ -42,7 +43,9 @@ class MyNotesActivity : AppCompatActivity() {
         bindView()
 
         fabAddNotes.setOnClickListener {
-            setupDialogBox()
+//            setupDialogBox()
+            val intent = Intent(this@MyNotesActivity, AddNotesActivity::class.java)
+            startActivityForResult(intent, ADD_NOTES_CODE)
         }
 
         setupSharedPreferences()
@@ -74,7 +77,7 @@ class MyNotesActivity : AppCompatActivity() {
 
     private fun bindView() {
         fabAddNotes = findViewById(R.id.fabAddNotes)
-        recyclerViewNotes = findViewById(R.id.recylclerViewNotes)
+        recyclerViewNotes = findViewById(R.id.recyclerViewNotes)
     }
 
     private fun setupDialogBox() {
