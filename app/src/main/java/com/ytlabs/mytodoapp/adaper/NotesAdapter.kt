@@ -39,12 +39,14 @@ class NotesAdapter(
 
         holder.textViewTitle.text = note.title
         holder.textViewDescription.text = note.description
+        holder.checkBoxMarkStatus.isChecked = note.isTaskCompleted
         holder.itemView.setOnClickListener {
             itemClickListener.onClick(note)
         }
 
         holder.checkBoxMarkStatus.setOnCheckedChangeListener(object: CompoundButton.OnCheckedChangeListener{
-            override fun onCheckedChanged(p0: CompoundButton?, p1: Boolean) {
+            override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
+                note.isTaskCompleted = isChecked
                 itemClickListener.onUpdate(note)
             }
 
