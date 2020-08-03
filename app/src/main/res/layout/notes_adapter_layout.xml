@@ -18,7 +18,7 @@
             android:layout_marginEnd="16dp"
             android:text="Title"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imageViewNotes"
             app:layout_constraintStart_toEndOf="@+id/checkboxMarkStatus"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -44,6 +44,15 @@
             app:layout_constraintTop_toBottomOf="@id/textViewDescription"
             app:layout_constraintTop_toTopOf="@+id/textViewTitle"
             app:layout_goneMarginStart="8dp" />
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:id="@+id/imageViewNotes"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textViewTitle"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewDescription"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

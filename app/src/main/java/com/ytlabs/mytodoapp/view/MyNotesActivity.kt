@@ -148,4 +148,19 @@ class MyNotesActivity : AppCompatActivity() {
         recyclerViewNotes.layoutManager = linearLayoutManager
         recyclerViewNotes.adapter = notesAdapter
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if(requestCode == ADD_NOTES_CODE){
+            val title = data?.getStringExtra(AppConstant.TITLE)
+            val description = data?.getStringExtra(AppConstant.DESCRIPTION)
+            val imagePath = data?.getStringExtra(AppConstant.IMAGE_PATH)
+
+            val note = Notes(title = title!!, description = description!!, imagePath = imagePath!!, isTaskCompleted = false)
+            addNoteToDb(note)
+            notesList.add(note)
+            recyclerViewNotes.adapter?.notifyItemChanged(notesList.size - 1)
+        }
+    }
 }

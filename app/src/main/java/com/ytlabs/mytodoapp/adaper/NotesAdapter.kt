@@ -4,11 +4,9 @@ import android.icu.text.CaseMap
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.CheckBox
-import android.widget.CompoundButton
-import android.widget.TextView
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.ytlabs.mytodoapp.R
 import com.ytlabs.mytodoapp.clicklisteners.ItemClickListener
 import com.ytlabs.mytodoapp.db.Notes
@@ -40,6 +38,8 @@ class NotesAdapter(
         holder.textViewTitle.text = note.title
         holder.textViewDescription.text = note.description
         holder.checkBoxMarkStatus.isChecked = note.isTaskCompleted
+        Glide.with(holder.itemView).load(note.imagePath).into(holder.imageView)
+
         holder.itemView.setOnClickListener {
             itemClickListener.onClick(note)
         }
@@ -49,9 +49,7 @@ class NotesAdapter(
                 note.isTaskCompleted = isChecked
                 itemClickListener.onUpdate(note)
             }
-
         })
-
     }
 
     // Holds the sub views in the item
@@ -59,8 +57,6 @@ class NotesAdapter(
         val textViewTitle: TextView = itemView.findViewById(R.id.textViewTitle)
         val textViewDescription: TextView = itemView.findViewById(R.id.textViewDescription)
         val checkBoxMarkStatus: CheckBox = itemView.findViewById(R.id.checkboxMarkStatus)
-
-
+        val imageView: ImageView = itemView.findViewById(R.id.imageViewNotes)
     }
-
 }
