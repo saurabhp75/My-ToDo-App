@@ -25,7 +25,7 @@ class AddNotesActivity : AppCompatActivity() {
     lateinit var buttonSubmit: Button
     private val REQUEST_CODE_GALLERY = 2
     private val REQUEST_CODE_CAMERA = 1
-    var picturePath = ""
+    var picturePath: String? = ""
     private val MY_PERMISSION_CODE = 124
 
     private val TAG = "AddNotesActivity"
@@ -59,7 +59,7 @@ class AddNotesActivity : AppCompatActivity() {
         if (storagePermission != PackageManager.PERMISSION_GRANTED) {
             listPermissionNeeded.add(android.Manifest.permission.READ_EXTERNAL_STORAGE)
         }
-        if (!listPermissionNeeded.isEmpty()) {
+        if (listPermissionNeeded.isNotEmpty()) {
             ActivityCompat.requestPermissions(
                 this,
                 listPermissionNeeded.toTypedArray<String>(),
@@ -120,33 +120,19 @@ class AddNotesActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-//        if(resultCode == Activity.RESULT_OK) {
-//            when (requestCode) {
-//                REQUEST_CODE_GALLERY -> {
-//                    val selectedImage = data?.data
-//                    val filePath = arrayOf(MediaStore.Images.Media.DATA)
-//                    val c = contentResolver.query(selectedImage, filePath, null, null,null)
-//
-//                }
-//                REQUEST_CODE_CAMERA -> {
-//
-//                }
-//            }
-//        }
-
-        if (resultCode == Activity.RESULT_OK) {
+        if(resultCode == Activity.RESULT_OK) {
             when (requestCode) {
                 REQUEST_CODE_GALLERY -> {
                     val selectedImage = data?.data
                     val filePath = arrayOf(MediaStore.Images.Media.DATA)
-                    val c =
-                        selectedImage?.let { contentResolver.query(it, filePath, null, null, null) }
+                    val c = selectedImage?.let { contentResolver.query(it, filePath, null, null,null) }
                     c?.moveToFirst()
                     val columnIndex = c?.getColumnIndex(filePath[0])
-                    picturePath = columnIndex?.let { c.getString(it).toString() }.toString()
+                    picturePath = columnIndex?.let { c?.getString(it) }
                     c?.close()
                     Log.d(TAG, "$picturePath: ");
                     Glide.with(this).load(picturePath).into(imageViewNotes)
+
                 }
                 REQUEST_CODE_CAMERA -> {
 
