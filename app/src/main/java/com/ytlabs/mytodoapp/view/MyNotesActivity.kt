@@ -13,6 +13,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.work.Constraints
+import androidx.work.PeriodicWorkRequest
+import androidx.work.WorkManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.ytlabs.mytodoapp.NotesApp
 import com.ytlabs.mytodoapp.utils.AppConstant
@@ -21,6 +24,8 @@ import com.ytlabs.mytodoapp.R
 import com.ytlabs.mytodoapp.adaper.NotesAdapter
 import com.ytlabs.mytodoapp.clicklisteners.ItemClickListener
 import com.ytlabs.mytodoapp.db.Notes
+import com.ytlabs.mytodoapp.workmanager.MyWorker
+import java.util.concurrent.TimeUnit
 
 //import com.ytlabs.mytodoapp.model.Notes
 
@@ -52,9 +57,22 @@ class MyNotesActivity : AppCompatActivity() {
         getIntentData()
         getDataFromDb()
         supportActionBar?.title = fullName
-        setupRecyclerView()
         // Code below doesn't work
         // actionBar?.title = fullName
+        setupRecyclerView()
+        setupWorkManager()
+    }
+
+    private fun setupWorkManager() {
+        val constraint = Constraints.Builder()
+            .build()
+        val request = PeriodicWorkRequest
+            .Builder(MyWorker::class.java, 1, TimeUnit.MINUTES)
+            .setConstraints(constraint)
+            .build()
+        WorkManager.getInstance(this).enqueue(request)
+        // To run one time task in sequence
+        // WorkManager.getInstance().beginWith(request1, request2, request3).then(task).enqueue()
     }
 
     private fun getDataFromDb() {

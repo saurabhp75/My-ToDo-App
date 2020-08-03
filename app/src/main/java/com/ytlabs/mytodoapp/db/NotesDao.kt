@@ -1,5 +1,6 @@
 package com.ytlabs.mytodoapp.db
 
+//import android.os.FileObserver.DELETE
 import androidx.room.*
 import androidx.room.OnConflictStrategy.REPLACE
 
@@ -17,4 +18,7 @@ interface NotesDao {
 
     @Delete
     fun delete(notes: Notes)
+
+    @Query("DELETE FROM notesData WHERE isTaskCompleted = :status")
+    fun deleteNotes(status: Boolean)
 }
