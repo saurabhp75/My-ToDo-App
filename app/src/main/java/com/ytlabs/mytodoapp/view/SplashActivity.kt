@@ -28,10 +28,12 @@ class SplashActivity : AppCompatActivity() {
         setupSharedPreference()
         checkLoginStatus()
         getFCMToken()
-        setupNotification("This is local notification")
+
+        // Send notification locally from another channel
+//        setupNotification("This is local notification")
     }
 
-    private fun setupNotification(body: String) {
+    /*private fun setupNotification(body: String) {
         // Channel id is required for notifications in Oreo and above
         val channelId = "Local ID"
         val ringtone = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
@@ -53,7 +55,7 @@ class SplashActivity : AppCompatActivity() {
 
         notificationManager.notify(0, notificationBuilder.build())
 
-    }
+    }*/
 
     private fun getFCMToken() {
         FirebaseInstanceId.getInstance().instanceId

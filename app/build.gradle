@@ -48,6 +48,7 @@ dependencies {
     // Add the SDK for Firebase Cloud Messaging
 //    implementation 'com.google.firebase:firebase-core:17.4.4'
     implementation 'com.google.firebase:firebase-messaging:20.2.4'
-
+    // To send GET and POST HTTP messages
+    implementation 'com.amitshekhar.android:android-networking:1.0.2'
 }
 
