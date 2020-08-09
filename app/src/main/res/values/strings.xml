@@ -16,4 +16,8 @@
     <string name="second_fragment">Second fragment</string>
     <string name="back">Back</string>
     <string name="done">Done</string>
+    <string name="your_own_todo_notes_app">Your own ToDo notes App</string>
+    <string name="create_your_own_todo_for_the_day">Create your own ToDo for the day</string>
+    <string name="chose_image_in_your_todos">Chose image in your todos</string>
+    <string name="chose_image_from_your_camera_or_gallery">Chose Image from your camera or Gallery</string>
 </resources>
