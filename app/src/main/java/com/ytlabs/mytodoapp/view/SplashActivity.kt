@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.iid.FirebaseInstanceId
 import com.ytlabs.mytodoapp.utils.PrefConstant
 import com.ytlabs.mytodoapp.R
+import com.ytlabs.mytodoapp.onboarding.OnBoardingActivity
 
 class SplashActivity : AppCompatActivity() {
     private val TAG = "SplashActivity"
@@ -80,11 +81,18 @@ class SplashActivity : AppCompatActivity() {
 
     private fun checkLoginStatus() {
         val isLoggedIn = sharedPreferences.getBoolean(PrefConstant.IS_LOGGED_IN, false)
+        val isBoardingSuccess = sharedPreferences.getBoolean(PrefConstant.ON_BOARDED_SUCCESSFULLY, false)
         if (isLoggedIn) {
             startActivity(Intent(this, MyNotesActivity::class.java))
 
         } else {
-            startActivity(Intent(this, LoginActivity::class.java))
+            // If on boarded success -> login
+            // else -> onBoardingActivity
+            if (isBoardingSuccess) {
+                startActivity(Intent(this, LoginActivity::class.java))
+            } else {
+                startActivity(Intent(this, OnBoardingActivity::class.java))
+            }
         }
     }
 }
