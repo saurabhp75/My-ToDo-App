@@ -114,7 +114,7 @@ class AddNotesActivity : AppCompatActivity() {
 
         textViewCamera.setOnClickListener {
             val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            var photoFile: File?
+            val photoFile: File?
             photoFile = createImage()
             if(photoFile != null){
                 val photoURI = FileProvider.getUriForFile(this@AddNotesActivity, BuildConfig.APPLICATION_ID + ".provider", photoFile)

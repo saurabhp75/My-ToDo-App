@@ -1,31 +1,23 @@
 package com.ytlabs.mytodoapp.onboarding
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import com.ytlabs.mytodoapp.R
 import com.ytlabs.mytodoapp.utils.PrefConstant
+import com.ytlabs.mytodoapp.utils.StoreSession
 import com.ytlabs.mytodoapp.view.LoginActivity
 
 class OnBoardingActivity : AppCompatActivity(), OnBoardingOneFragment.OnNextClick,
     OnBoardingTwoFragment.OnOptionClick {
     private lateinit var viewPager: ViewPager
-    lateinit var sharedPreferences:SharedPreferences
-    private lateinit var editor: SharedPreferences.Editor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_on_boarding)
 
         bindView()
-        setupSharedPreferences()
-    }
-
-    private fun setupSharedPreferences() {
-        sharedPreferences = getSharedPreferences(PrefConstant.SHARED_PREFRENCE_NAME, Context.MODE_PRIVATE)
     }
 
     private fun bindView() {
@@ -44,9 +36,7 @@ class OnBoardingActivity : AppCompatActivity(), OnBoardingOneFragment.OnNextClic
 
     override fun onOptionDone() {
         // 2nd fragment
-        editor = sharedPreferences.edit()
-        editor.putBoolean(PrefConstant.ON_BOARDED_SUCCESSFULLY, true)
-        editor.apply()
+        StoreSession.write(PrefConstant.ON_BOARDED_SUCCESSFULLY, true)
 
         val intent = Intent(this@OnBoardingActivity, LoginActivity::class.java)
         startActivity(intent)

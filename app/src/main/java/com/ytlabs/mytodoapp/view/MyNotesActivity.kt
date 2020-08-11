@@ -1,9 +1,6 @@
 package com.ytlabs.mytodoapp.view
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -13,6 +10,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.work.Constraints
@@ -20,12 +18,13 @@ import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.ytlabs.mytodoapp.NotesApp
-import com.ytlabs.mytodoapp.utils.AppConstant
-import com.ytlabs.mytodoapp.utils.PrefConstant
 import com.ytlabs.mytodoapp.R
 import com.ytlabs.mytodoapp.adaper.NotesAdapter
 import com.ytlabs.mytodoapp.clicklisteners.ItemClickListener
 import com.ytlabs.mytodoapp.db.Notes
+import com.ytlabs.mytodoapp.utils.AppConstant
+import com.ytlabs.mytodoapp.utils.PrefConstant
+import com.ytlabs.mytodoapp.utils.StoreSession
 import com.ytlabs.mytodoapp.workmanager.MyWorker
 import java.util.concurrent.TimeUnit
 
@@ -35,7 +34,6 @@ class MyNotesActivity : AppCompatActivity() {
     private val TAG = "MyNotesActivity"
     private var fullName: String? = null
     private lateinit var fabAddNotes: FloatingActionButton
-    private lateinit var sharedPreferences: SharedPreferences
     private lateinit var recyclerViewNotes: RecyclerView
     val ADD_NOTES_CODE = 100
 
@@ -55,7 +53,6 @@ class MyNotesActivity : AppCompatActivity() {
             startActivityForResult(intent, ADD_NOTES_CODE)
         }
 
-        setupSharedPreferences()
         getIntentData()
         getDataFromDb()
         supportActionBar?.title = fullName
@@ -83,15 +80,10 @@ class MyNotesActivity : AppCompatActivity() {
         notesList.addAll(notesDao.getAll())
     }
 
-    private fun setupSharedPreferences() {
-        sharedPreferences =
-            getSharedPreferences(PrefConstant.SHARED_PREFRENCE_NAME, Context.MODE_PRIVATE)
-    }
-
     private fun getIntentData() {
         fullName = intent.getStringExtra(AppConstant.FULL_NAME)
         if (fullName == null) {
-            fullName = sharedPreferences.getString(PrefConstant.FULL_NAME, "")
+            fullName = StoreSession.readString(PrefConstant.FULL_NAME)
         }
     }
 

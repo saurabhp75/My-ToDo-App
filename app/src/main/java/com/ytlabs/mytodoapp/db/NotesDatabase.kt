@@ -11,7 +11,7 @@ abstract class NotesDatabase : RoomDatabase() {
     abstract fun notesDao(): NotesDao
 
     companion object {
-        lateinit var INSTANCE: NotesDatabase
+        private lateinit var INSTANCE: NotesDatabase
         fun getInstance(context: Context): NotesDatabase {
             synchronized(NotesDatabase::class) {
                 INSTANCE = Room.databaseBuilder(

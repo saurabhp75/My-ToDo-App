@@ -6,12 +6,12 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 
 class FragmentAdapter(fragmentManager: FragmentManager): FragmentStatePagerAdapter(fragmentManager) {
     override fun getItem(position: Int): Fragment {
-        when (position) {
+        return when (position) {
             0 -> {
-                return OnBoardingOneFragment()
+                OnBoardingOneFragment()
             }
             1 -> {
-                return OnBoardingTwoFragment()
+                OnBoardingTwoFragment()
             }
             else -> {
                 throw IllegalStateException("Not Handled Position $position")

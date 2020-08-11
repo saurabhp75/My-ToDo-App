@@ -1,23 +1,20 @@
 package com.ytlabs.mytodoapp.view
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.ytlabs.mytodoapp.R
 import com.ytlabs.mytodoapp.utils.AppConstant
 import com.ytlabs.mytodoapp.utils.PrefConstant
-import com.ytlabs.mytodoapp.R
+import com.ytlabs.mytodoapp.utils.StoreSession
 
 class LoginActivity : AppCompatActivity() {
     lateinit var editTextFullName: EditText
     lateinit var editTextUserName: EditText
     lateinit var buttonLogin: Button
-    lateinit var sharedPreferences: SharedPreferences
-    lateinit var editor: SharedPreferences.Editor
 
     private val TAG = "LoginActivity"
 
@@ -28,8 +25,6 @@ class LoginActivity : AppCompatActivity() {
         editTextFullName = findViewById(R.id.editTextFullName)
         editTextUserName = findViewById(R.id.editTextUserName)
         buttonLogin = findViewById(R.id.buttonLogin)
-
-        setupSharedPreferences()
 
         buttonLogin.setOnClickListener {
             val fullName = editTextFullName.text.toString()
@@ -50,19 +45,11 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun saveFullName(fullName: String) {
-        editor = sharedPreferences.edit()
-        editor.putString(PrefConstant.FULL_NAME, fullName)
-        editor.apply()
+        StoreSession.write(PrefConstant.FULL_NAME, fullName)
     }
 
     private fun saveLoginStatus() {
-        editor = sharedPreferences.edit()
-        editor.putBoolean(PrefConstant.IS_LOGGED_IN, true)
-        editor.apply()
+        StoreSession.write(PrefConstant.IS_LOGGED_IN, true)
     }
 
-    private fun setupSharedPreferences() {
-        //This shared prefrence shall be accessible by this app only
-        sharedPreferences = getSharedPreferences(PrefConstant.SHARED_PREFRENCE_NAME, Context.MODE_PRIVATE)
-    }
 }
