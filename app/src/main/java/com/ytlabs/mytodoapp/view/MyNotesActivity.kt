@@ -1,5 +1,6 @@
 package com.ytlabs.mytodoapp.view
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -164,7 +165,7 @@ class MyNotesActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if(requestCode == ADD_NOTES_CODE){
+        if(requestCode == ADD_NOTES_CODE && resultCode == Activity.RESULT_OK){
             val title = data?.getStringExtra(AppConstant.TITLE)
             val description = data?.getStringExtra(AppConstant.DESCRIPTION)
             val imagePath = data?.getStringExtra(AppConstant.IMAGE_PATH)

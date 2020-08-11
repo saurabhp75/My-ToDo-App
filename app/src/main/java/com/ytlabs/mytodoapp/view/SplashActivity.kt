@@ -80,5 +80,8 @@ class SplashActivity : AppCompatActivity() {
                 startActivity(Intent(this, OnBoardingActivity::class.java))
             }
         }
+
+        // Kill splashActivity
+        finish()
     }
 }
