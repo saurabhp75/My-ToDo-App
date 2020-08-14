@@ -165,12 +165,17 @@ class MyNotesActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if(requestCode == ADD_NOTES_CODE && resultCode == Activity.RESULT_OK){
+        if (requestCode == ADD_NOTES_CODE && resultCode == Activity.RESULT_OK) {
             val title = data?.getStringExtra(AppConstant.TITLE)
             val description = data?.getStringExtra(AppConstant.DESCRIPTION)
             val imagePath = data?.getStringExtra(AppConstant.IMAGE_PATH)
 
-            val note = Notes(title = title!!, description = description!!, imagePath = imagePath!!, isTaskCompleted = false)
+            val note = Notes(
+                title = title!!,
+                description = description!!,
+                imagePath = imagePath!!,
+                isTaskCompleted = false
+            )
             addNoteToDb(note)
             notesList.add(note)
             recyclerViewNotes.adapter?.notifyItemChanged(notesList.size - 1)
@@ -185,7 +190,7 @@ class MyNotesActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(item.itemId == R.id.blog) {
+        if (item.itemId == R.id.blog) {
             val intent = Intent(this@MyNotesActivity, BlogActivity::class.java)
             startActivity(intent)
         }

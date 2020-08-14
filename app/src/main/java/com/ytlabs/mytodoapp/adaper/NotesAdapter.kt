@@ -44,12 +44,10 @@ class NotesAdapter(
             itemClickListener.onClick(note)
         }
 
-        holder.checkBoxMarkStatus.setOnCheckedChangeListener(object: CompoundButton.OnCheckedChangeListener{
-            override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
-                note.isTaskCompleted = isChecked
-                itemClickListener.onUpdate(note)
-            }
-        })
+        holder.checkBoxMarkStatus.setOnCheckedChangeListener { buttonView, isChecked ->
+            note.isTaskCompleted = isChecked
+            itemClickListener.onUpdate(note)
+        }
     }
 
     // Holds the sub views in the item
