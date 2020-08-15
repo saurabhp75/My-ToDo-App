@@ -44,7 +44,7 @@ class NotesAdapter(
             itemClickListener.onClick(note)
         }
 
-        holder.checkBoxMarkStatus.setOnCheckedChangeListener { buttonView, isChecked ->
+        holder.checkBoxMarkStatus.setOnCheckedChangeListener { _, isChecked ->
             note.isTaskCompleted = isChecked
             itemClickListener.onUpdate(note)
         }
